@@ -36,4 +36,10 @@ public class UserEntity {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "userEntity",fetch = FetchType.LAZY)
 	private Set<TaskEntity> taskEntities;
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + "]";
+	}
+	
+	
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="todolist" project="todolist" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.deloitte.todolist.TodolistApplicationTests" time="1.1">
+    <testcase name="whenUserNameNotPresentThenMessage" classname="com.deloitte.todolist.TodolistApplicationTests" time="1.1"/>
+  </testsuite>
+</testrun>

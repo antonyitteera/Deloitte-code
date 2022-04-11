@@ -1,0 +1,44 @@
+package com.deloitte.todolist;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.deloitte.todolist.DTO.TaskDTO;
+import com.deloitte.todolist.entity.UserEntity;
+import com.deloitte.todolist.repository.TaskRepository;
+import com.deloitte.todolist.repository.UserRepo;
+import com.deloitte.todolist.service.TaskServiceImpl;
+
+@RunWith(MockitoJUnitRunner.class)
+class TodolistApplicationTests {
+
+	
+	@Mock
+	private TaskRepository taskRepo;
+	
+	@Mock
+	private UserRepo userRepo;
+	
+	@InjectMocks
+	private TaskServiceImpl taskService;
+	
+	@Test
+	public void whenUserNameNotPresentThenMessage() {
+		UserEntity userObj= new UserEntity();
+		TaskDTO task= new TaskDTO();
+	    doReturn(Optional.of(userObj)).when(userRepo).findByUsername(ArgumentMatchers.anyString());
+
+//		when(userRepo.findByUsername(ArgumentMatchers.anyString())).thenReturn(userObj);
+		assertEquals("Task failed to insert", taskService.addToTask(task, "Antony"));
+	}
+}
