@@ -1,0 +1,9 @@
+package com.deloitte.todolist.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.deloitte.todolist.entity.TaskEntity;
+
+public interface TaskRepository extends JpaRepository<TaskEntity, Integer> {
+
+}

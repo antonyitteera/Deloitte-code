@@ -1,0 +1,42 @@
+package com.deloitte.todolist.service;
+
+import java.util.ArrayList;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Component
+public class JwtUserDetailsService implements UserDetailsService { //To load user deatils from Database
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		if ("javainuse".equals(username)) {
+			return new User("test", "password123",
+					new ArrayList<>());
+			//The user class contain the field username, password and Roles
+		} else {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}
+	}
+	
+	/*@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		Optional<UserEntity> userOptional = userRepository.findById(Long.valueOf(username));
+		System.out.println(username);
+		System.out.println(userOptional.get().getAccountnum());
+		if(userOptional.isPresent()) {
+			UserEntity user = userOptional.get();
+			Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+	        
+            authorities.add(new SimpleGrantedAuthority(user.getRole()));
+            
+            return new User(user.getAccountnum().toString(), user.getPin().toString(), authorities);
+		}
+		return null;
+	}*/
+}

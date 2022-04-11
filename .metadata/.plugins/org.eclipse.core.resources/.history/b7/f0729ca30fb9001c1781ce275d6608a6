@@ -1,0 +1,2 @@
+insert into user(username,password,role) VALUES('test','pwd123',['USER'])
+insert into user(username,password,role) VALUES('demo','pwd321',['USER'])

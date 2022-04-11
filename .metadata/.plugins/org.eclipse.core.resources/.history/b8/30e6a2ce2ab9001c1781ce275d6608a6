@@ -1,0 +1,11 @@
+package com.deloitte.todolist.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TaskDTO {
+
+}

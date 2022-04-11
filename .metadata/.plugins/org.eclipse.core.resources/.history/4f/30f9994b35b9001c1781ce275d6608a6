@@ -1,0 +1,8 @@
+package com.deloitte.todolist.service;
+
+import com.deloitte.todolist.DTO.TaskDTO;
+
+public interface TaskService {
+
+	public String addToTask(TaskDTO task, String userName);
+}

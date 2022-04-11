@@ -1,0 +1,93 @@
+package com.deloitte.todolist.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.deloitte.todolist.DTO.TaskDTO;
+import com.deloitte.todolist.DTO.TaskUpdateDTO;
+import com.deloitte.todolist.entity.TaskEntity;
+import com.deloitte.todolist.entity.UserEntity;
+import com.deloitte.todolist.exception.PermissionDeniedException;
+import com.deloitte.todolist.repository.TaskRepository;
+import com.deloitte.todolist.repository.UserRepo;
+
+@Service
+public class TaskServiceImpl implements TaskService {
+	
+	@Autowired
+	private TaskRepository taskRepo;
+	
+	@Autowired
+	private UserRepo userRepo;
+
+	@Override
+	public String addToTask(TaskDTO task, String userName) {
+		Optional<UserEntity> userObj=userRepo.findByUsername(userName);
+		if(userObj.isPresent()) {
+			TaskEntity taskObj= new TaskEntity();
+			taskObj.setUserEntity(userObj.get());
+			taskObj.setTask(task.getTask());
+			taskObj.setDescription(task.getDescription());
+			taskObj.setUpdateTime(LocalDateTime.now());
+			taskObj.setIsChecked(false);
+			TaskEntity savedObj=taskRepo.save(taskObj);
+			return "Task created successfully with id "+savedObj.getId();
+		}
+		return "Task failed to insert";
+	}
+
+	@Override
+	public Set<TaskEntity> getTask(String userName) {
+		Optional<UserEntity> userObj=userRepo.findByUsername(userName);
+		if(userObj.isPresent()) {
+			Set<TaskEntity> taskList= userObj.get().getTaskEntities();
+			return taskList;
+		}
+		return null;
+		
+	}
+
+	@Override
+	public String deleteTask(Integer taskId, String userName) {
+		Optional<UserEntity> userObj=userRepo.findByUsername(userName);
+		if(userObj.isPresent()) {
+			Set<TaskEntity> taskSet=userObj.get().getTaskEntities();
+			if(taskSet.stream().anyMatch(x->x.getId()==taskId)) {
+				Optional<TaskEntity> taskObj= taskRepo.findById(taskId);
+				System.out.println("taskObj"+taskObj.get().getId());
+				taskRepo.deleteById(taskId);
+				return "Task deleted succssfully";
+			}else {
+				throw new PermissionDeniedException("This task is created by other user. Current user is not permitted to delete this task");
+			}
+		}
+		return "Task was unable to delete";
+	}
+
+	@Override
+	public String updateTask(Integer taskId, String userName, TaskUpdateDTO taskDTO) {
+		Optional<UserEntity> userObj=userRepo.findByUsername(userName);
+		if(userObj.isPresent()) {
+			Set<TaskEntity> taskSet=userObj.get().getTaskEntities();
+			if(taskSet.stream().anyMatch(x->x.getId()==taskId)) {
+				TaskEntity taskObj= taskRepo.findById(taskId).get();
+				taskObj.setDescription(taskDTO.getDescription());
+				taskObj.setTask(taskDTO.getTask());
+				taskObj.setIsChecked(taskDTO.getIsChecked());
+				System.out.println("checked value: "+taskDTO.getIsChecked());
+				taskObj.setUpdateTime(LocalDateTime.now());
+				System.out.println("Retreived data "+taskRepo.save(taskObj));
+				return "Task updated succssfully";
+			}else {
+				throw new PermissionDeniedException("This task is created by other user. Current user is not permitted to modify this task");
+			}
+		}
+		return "Task was unable to update";
+	}
+
+}

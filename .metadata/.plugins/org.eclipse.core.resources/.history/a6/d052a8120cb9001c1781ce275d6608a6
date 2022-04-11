@@ -1,0 +1,15 @@
+package com.deloitte.todolist.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "user")
+@Data
+public class UserEntity {
+	private Integer id;
+	private String username;
+	private String password;
+}

@@ -1,0 +1,34 @@
+package com.deloitte.todolist.entity;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "user")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserEntity {
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
+	private Integer id;
+	private String username;
+	private String password;
+	@OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private Set<TaskEntity> taskEntities;
+}

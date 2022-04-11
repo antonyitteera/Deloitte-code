@@ -1,0 +1,27 @@
+package com.deloitte.todolist.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.deloitte.todolist.DTO.TaskDTO;
+import com.deloitte.todolist.utils.JwtTokenUtil;
+
+@RestController
+@RequestMapping("/api/v1")
+public class TaskController {
+	
+	@Autowired
+	private JwtTokenUtil jwt;
+
+	@RequestMapping(value = "/createtask",method = RequestMethod.POST)
+	public void addNewTask(@RequestBody TaskDTO taskDTO, @RequestHeader("Authorization") String authToken) {
+		String[] token=authToken.split(" ");
+		String userName=jwt.extractusername(token[1]);
+		
+		
+	}
+}

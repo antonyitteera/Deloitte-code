@@ -1,0 +1,11 @@
+package com.deloitte.todolist.service;
+
+import org.springframework.stereotype.Service;
+
+import com.deloitte.todolist.DTO.TaskDTO;
+
+@Service
+public interface TaskService {
+
+	public void addToTask(TaskDTO task, String userName);
+}
