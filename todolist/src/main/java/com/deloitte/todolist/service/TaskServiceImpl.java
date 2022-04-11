@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,8 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private UserRepo userRepo;
 
+	private Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
+
 	@Override
 	public String addToTask(TaskDTO task, String userName) {
 		Optional<UserEntity> userObj=userRepo.findByUsername(userName);
@@ -38,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
 			taskObj.setUpdateTime(LocalDateTime.now());
 			taskObj.setIsChecked(false);
 			TaskEntity savedObj=taskRepo.save(taskObj);
-			System.out.println("Saved Obj:"+savedObj);
+			LOGGER.info("Task created successfully with id '{}'", savedObj.getId());
 			return "Task created successfully with id "+savedObj.getId();
 		}
 		return "Task failed to insert";
@@ -61,9 +66,8 @@ public class TaskServiceImpl implements TaskService {
 		if(userObj.isPresent()) {
 			Set<TaskEntity> taskSet=userObj.get().getTaskEntities();
 			if(taskSet.stream().anyMatch(x->x.getId()==taskId)) {
-				Optional<TaskEntity> taskObj= taskRepo.findById(taskId);
-				System.out.println("taskObj"+taskObj.get().getId());
 				taskRepo.deleteById(taskId);
+				LOGGER.info("Task deleted successfully with id '{}'", taskId);
 				return "Task deleted succssfully";
 			}else {
 				throw new PermissionDeniedException("This task is created by other user. Current user is not permitted to delete this task");
@@ -82,10 +86,9 @@ public class TaskServiceImpl implements TaskService {
 				taskObj.setDescription(taskDTO.getDescription());
 				taskObj.setTask(taskDTO.getTask());
 				taskObj.setIsChecked(taskDTO.getIsChecked());
-				System.out.println("checked value: "+taskDTO.getIsChecked());
 				taskObj.setUpdateTime(LocalDateTime.now());
-				System.out.println("Retreived data "+taskRepo.save(taskObj));
-				return "Task updated succssfully";
+				taskRepo.save(taskObj);
+				return "Task updated successfully";
 			}else {
 				throw new PermissionDeniedException("This task is created by other user. Current user is not permitted to modify this task");
 			}
