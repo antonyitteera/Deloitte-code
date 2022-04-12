@@ -10,8 +10,8 @@ import { LoginService } from '../service/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  account='';
-  pin='';
+  username='';
+  password='';
   constructor(public loginService : LoginService,
     private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     // console.log("login");
-    this.loginService.login(this.account,this.pin).subscribe((i:any)=>{
+    this.loginService.login(this.username,this.password).subscribe((i:any)=>{
       this.loginService.token = i.token;
       console.log(this.loginService.token);
       this.router.navigateByUrl("/list");

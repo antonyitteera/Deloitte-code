@@ -12,11 +12,11 @@ export class LoginService {
   token:any = '';
   constructor(private http: HttpClient) { }
 
-  login(account:any,pin:any){
+  login(username:any,password:any){
 
     return this.http.post(`${environment.loginServiceBaseUrl}/authenticate`,{
-      "username":account,
-      "password":pin
+      "username":username,
+      "password":password
     })
   }
 
