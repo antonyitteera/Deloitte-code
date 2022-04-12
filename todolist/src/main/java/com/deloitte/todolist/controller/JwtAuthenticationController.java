@@ -22,7 +22,7 @@ import com.deloitte.todolist.service.JwtUserDetailsService;
 import com.deloitte.todolist.utils.JwtTokenUtil;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class JwtAuthenticationController {
 
 	@Autowired

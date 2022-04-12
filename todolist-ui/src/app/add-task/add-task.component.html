@@ -1,0 +1,43 @@
+<div *ngIf="data.type == '2'">
+    <div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Task</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="data?.note.task">
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea  matInput placeholder="Placeholder" [(ngModel)]="data?.note.description"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <button mat-button color="primary" style="border: 1px solid;" (click)="update()">Update</button>
+    </div>
+</div>
+
+<div *ngIf="data.type == '1'">
+    <div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Task</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="task">
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea  matInput placeholder="Placeholder" [(ngModel)]="description"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <button mat-button color="primary" style="border: 1px solid;" (click)="add()">Add Task</button>
+    </div>
+</div>

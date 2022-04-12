@@ -1,0 +1,60 @@
+
+<div style="background-color: #2f4f4fe3;
+display: flex;
+justify-content: end;">
+    <button type="button" mat-button color="primary" style="   font-size: 31px;
+    padding: 14px;
+    color: white;
+" (click)="logout()">
+      Logout
+    </button>
+</div>
+<div>
+    <div style="    overflow: scroll;
+    height: 80vh;">
+    <div *ngFor="let note of notes">
+        <mat-card style="margin: 10px;
+        display: flex;
+        justify-content: space-between;
+        "  [style.background]="note.isChecked?'cadetblue':'#fecd05c2'">
+            <div style="    display: flex;
+            align-items: center;
+        ">
+                <mat-checkbox color="primary" [(ngModel)]="note.isChecked" (ngModelChange)="checkboxUpdated(note)"></mat-checkbox>
+            </div>
+            <div>
+                <div style="font-size: 29px;
+                font-weight: bold;
+                font-family: fantasy;
+                letter-spacing: 1.22px;">{{note.task}}</div>
+                <div style="font-size: 25px;
+                margin-top: 12px;
+                font-family: cursive;">{{note.description}}</div>
+                <div style="font-size: 15px;
+                margin-top: 12px;
+                font-family: cursive;">{{note.updateTime| date:'long'}}</div>
+            </div>
+            <div style="    display: flex;
+            align-items: center;">
+                <button  type="button" mat-button color="warn" style="    font-size: 25px;
+                padding: 14px;" (click)="deleteTask(note)">
+                    Delete
+                  </button>
+                  <button type="button" mat-button color="primary" style="    font-size: 25px;
+                  padding: 14px;" (click)="openDialog(note)">
+                    Update
+                  </button>
+            </div>
+        </mat-card>
+    </div>
+</div>
+    <button type="button" mat-button color="primary" style="padding: 14px;
+    width: 100%;
+    background-color: #0b8709;
+    color: white;
+    font-size: 39px;
+    font-family: fantasy;
+    letter-spacing: 2px;" (click)="openDialogAdd()">
+      Add Task
+    </button>
+</div>

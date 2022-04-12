@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,6 +23,7 @@ import com.deloitte.todolist.entity.TaskEntity;
 import com.deloitte.todolist.service.TaskService;
 import com.deloitte.todolist.utils.JwtTokenUtil;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1")
 public class TaskController {
