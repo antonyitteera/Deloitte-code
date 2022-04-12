@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  loginServiceBaseUrl : 'http://localhost:8080',
-  atmServiceBaseUrl : 'http://localhost:8080'
+  loginServiceBaseUrl : 'http://localhost:8080/todolist-0.0.1-SNAPSHOT',
+  atmServiceBaseUrl : 'http://localhost:8080/todolist-0.0.1-SNAPSHOT'
 };
 
 /*
