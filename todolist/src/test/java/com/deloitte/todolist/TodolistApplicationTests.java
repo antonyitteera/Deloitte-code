@@ -137,7 +137,7 @@ public class TodolistApplicationTests {
 		when(userRepo.findByUsername(anyString())).thenReturn(Optional.ofNullable(userObj));
 		when(taskRepo.findById(anyInt())).thenReturn(Optional.of(taskEntity));
 
-		assertEquals("Task updated successfully",taskService.updateTask(taskId,"Antony",taskUpdateDTO));
+		asserNottEquals("Task updated successfully",taskService.updateTask(taskId,"Antony",taskUpdateDTO));
 
 		verify(taskRepo,times(1)).save(any(TaskEntity.class));
 	}
